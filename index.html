@@ -3,15 +3,330 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎬 MP4 to Text | Whisper AI</title>
+  <title>SubForge — AI Subtitle Creator</title>
+  <meta name="description" content="Create professional subtitles from any video. Transcribe with Whisper AI, edit timestamps, export SRT/VTT/TXT — entirely in your browser." />
+  <meta property="og:title" content="SubForge — AI Subtitle Creator" />
+  <meta property="og:description" content="Professional subtitle creation powered by Whisper AI." />
+  <meta name="theme-color" content="#0d0d0d" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='20' width='100' height='100' fill='%2310a37f'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>S</text></svg>" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>🎬 Convert MP4 Video to English Transcript</h1>
-  <input type="file" id="videoInput" accept="video/mp4" />
-  <button onclick="processVideo()">Transcribe</button>
-  <div class="output" id="output">Upload an English .mp4 video</div>
-  
-  <script type="module" src="script.js"></script>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="navbar-brand">
+        <div class="navbar-logo">S</div>
+        <span class="navbar-title">SubForge</span>
+      </a>
+      <div class="navbar-actions">
+        <button class="btn btn-ghost btn-icon" id="settingsBtn" title="Settings" aria-label="Settings">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <h1>Create subtitles from any video</h1>
+      <p class="hero-subtitle">
+        Upload a video, get an AI-powered transcript, edit the timing, and export production-ready subtitle files.
+      </p>
+      <div class="hero-capabilities">
+        <span class="hero-cap">
+          <span class="cap-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2z"/><path d="M12 6v6l4 2"/></svg></span>
+          Fast transcription
+        </span>
+        <span class="hero-cap">
+          <span class="cap-icon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span>
+          Built-in editor
+        </span>
+        <span class="hero-cap">
+          <span class="cap-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+          SRT / VTT / TXT export
+        </span>
+        <span class="hero-cap">
+          <span class="cap-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
+          Runs in your browser
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="workspace">
+    <div class="container">
+
+      <!-- Onboarding: API Key Setup -->
+      <section class="onboarding" id="onboardingSection">
+        <div class="onboarding-card" id="onboardingCard">
+          <div class="onboarding-header">
+            <div class="onboarding-step-badge" id="onboardingBadge">1</div>
+            <h2 class="onboarding-title" id="onboardingTitleText">Connect to Whisper AI</h2>
+          </div>
+          <div class="onboarding-body">
+            <p class="onboarding-text">
+              SubForge uses <a href="https://huggingface.co/openai/whisper-base" target="_blank" rel="noopener">OpenAI's Whisper</a> model hosted on HuggingFace for transcription. You'll need a free API key to get started:
+            </p>
+            <ol class="onboarding-steps-list">
+              <li>
+                <span class="step-num">1</span>
+                <span>Go to <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener">huggingface.co/settings/tokens</a> and create a free account</span>
+              </li>
+              <li>
+                <span class="step-num">2</span>
+                <span>Click <strong>"Create new token"</strong>, give it any name, and select <strong>"Read"</strong> access</span>
+              </li>
+              <li>
+                <span class="step-num">3</span>
+                <span>Copy the token (starts with <code style="color:var(--accent);font-size:12px">hf_</code>) and paste it below</span>
+              </li>
+            </ol>
+            <div class="onboarding-input-row">
+              <input class="onboarding-input" type="password" id="onboardingKeyInput" placeholder="hf_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+              <button class="btn btn-primary" id="onboardingSaveBtn">Save key</button>
+            </div>
+            <div class="onboarding-status hidden" id="onboardingStatus"></div>
+            <p class="form-hint" style="margin-top: var(--space-3);">
+              Your key is stored locally in your browser. It is never sent anywhere except HuggingFace.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Upload -->
+      <section class="section-card" id="uploadCard">
+        <div class="section-header">
+          <span class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </span>
+          <h2 class="section-title">Upload video</h2>
+          <span class="section-meta">MP4, WebM, MKV, AVI</span>
+        </div>
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M9 15l3-3 3 3"/></svg>
+          </div>
+          <div class="upload-title">Drop your video file here</div>
+          <div class="upload-subtitle">or <span class="browse-link" id="browseLink">browse from your computer</span></div>
+          <div class="upload-formats">
+            <span class="format-tag">.mp4</span>
+            <span class="format-tag">.webm</span>
+            <span class="format-tag">.mkv</span>
+            <span class="format-tag">.avi</span>
+          </div>
+          <input type="file" id="videoInput" accept="video/mp4,video/webm,video/x-matroska,video/avi" class="sr-only" />
+        </div>
+        <div class="file-preview" id="filePreview">
+          <div class="file-icon">
+            <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <div class="file-info">
+            <div class="file-name" id="fileName"></div>
+            <div class="file-size" id="fileSize"></div>
+          </div>
+          <button class="file-remove" id="removeFileBtn" aria-label="Remove file">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Transcribe Button -->
+      <div class="transcribe-action" id="transcribeAction">
+        <button class="btn btn-primary btn-lg" id="transcribeBtn">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Transcribe video
+        </button>
+      </div>
+
+      <!-- Video Player -->
+      <section class="section-card video-section" id="videoSection">
+        <div class="section-header">
+          <span class="section-icon">
+            <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </span>
+          <h2 class="section-title">Preview</h2>
+        </div>
+        <div class="video-wrapper" id="videoWrapper">
+          <video id="videoPlayer" controls preload="metadata"></video>
+          <div class="subtitle-overlay" id="subtitleOverlay">
+            <span class="subtitle-overlay-text" id="subtitleText"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Progress -->
+      <section class="section-card progress-section" id="progressSection">
+        <div class="section-header">
+          <span class="section-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+          </span>
+          <h2 class="section-title">Processing</h2>
+        </div>
+        <div class="progress-steps" id="progressSteps">
+          <div class="progress-step" id="step-ffmpeg">
+            <div class="step-bar"><div class="step-bar-fill"></div></div>
+            <span class="step-label">Load engine</span>
+          </div>
+          <div class="progress-step" id="step-extract">
+            <div class="step-bar"><div class="step-bar-fill"></div></div>
+            <span class="step-label">Extract audio</span>
+          </div>
+          <div class="progress-step" id="step-transcribe">
+            <div class="step-bar"><div class="step-bar-fill"></div></div>
+            <span class="step-label">Transcribe</span>
+          </div>
+          <div class="progress-step" id="step-generate">
+            <div class="step-bar"><div class="step-bar-fill"></div></div>
+            <span class="step-label">Generate subs</span>
+          </div>
+        </div>
+        <div class="progress-detail">
+          <span class="progress-status" id="progressStatus">Preparing...</span>
+          <span class="progress-percent" id="progressPercent">0%</span>
+        </div>
+        <div class="cancel-row">
+          <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+        </div>
+      </section>
+
+      <!-- Subtitle Editor -->
+      <section class="section-card editor-section" id="editorSection">
+        <div class="section-header">
+          <span class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </span>
+          <h2 class="section-title">Subtitle editor</h2>
+          <span class="section-meta" id="subtitleCount">0 entries</span>
+        </div>
+        <div class="editor-toolbar" id="editorToolbar">
+          <button class="btn btn-secondary" id="addEntryBtn">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add entry
+          </button>
+          <button class="btn btn-secondary" id="autoTimingBtn">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Auto-timing
+          </button>
+          <button class="btn btn-danger" id="clearAllBtn">
+            <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+            Clear all
+          </button>
+        </div>
+        <div class="subtitle-entries" id="subtitleEntries">
+          <div class="empty-state" id="editorEmpty">
+            No subtitle entries yet. Transcribe a video or add entries manually.
+          </div>
+        </div>
+      </section>
+
+      <!-- Export -->
+      <section class="section-card export-section" id="exportSection">
+        <div class="section-header">
+          <span class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </span>
+          <h2 class="section-title">Export</h2>
+        </div>
+        <div class="export-grid">
+          <div class="export-option" id="exportSRT" tabindex="0" role="button" aria-label="Export SRT">
+            <div class="export-option-title">SubRip</div>
+            <div class="export-option-desc">Most compatible format for video players</div>
+            <span class="export-option-ext">.srt</span>
+          </div>
+          <div class="export-option" id="exportVTT" tabindex="0" role="button" aria-label="Export VTT">
+            <div class="export-option-title">WebVTT</div>
+            <div class="export-option-desc">Web standard for HTML5 video</div>
+            <span class="export-option-ext">.vtt</span>
+          </div>
+          <div class="export-option" id="exportTXT" tabindex="0" role="button" aria-label="Export TXT">
+            <div class="export-option-title">Plain Text</div>
+            <div class="export-option-desc">Clean transcript without timestamps</div>
+            <span class="export-option-ext">.txt</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- SETTINGS MODAL -->
+  <div class="modal-backdrop" id="settingsModal">
+    <div class="modal" role="dialog" aria-labelledby="settingsTitle" aria-modal="true">
+      <div class="modal-header">
+        <h2 class="modal-title" id="settingsTitle">Settings</h2>
+        <button class="modal-close" id="closeModalBtn" aria-label="Close">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="apiKeyInput">API Key</label>
+        <div class="form-input-group">
+          <input class="form-input" type="password" id="apiKeyInput" placeholder="hf_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+          <button class="form-toggle-btn" id="toggleKeyVisibility" aria-label="Toggle visibility">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <p class="form-hint">
+          Free from <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener">huggingface.co/settings/tokens</a>
+        </p>
+        <div class="key-status hidden" id="keyStatus"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="languageSelect">Language</label>
+        <select class="form-select" id="languageSelect">
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="it">Italian</option>
+          <option value="pt">Portuguese</option>
+          <option value="nl">Dutch</option>
+          <option value="ja">Japanese</option>
+          <option value="ko">Korean</option>
+          <option value="zh">Chinese</option>
+          <option value="ru">Russian</option>
+          <option value="ar">Arabic</option>
+          <option value="hi">Hindi</option>
+          <option value="ta">Tamil</option>
+          <option value="tr">Turkish</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="modelSelect">Model</label>
+        <select class="form-select" id="modelSelect">
+          <option value="openai/whisper-base">Whisper Base — fast</option>
+          <option value="openai/whisper-small">Whisper Small — balanced</option>
+          <option value="openai/whisper-medium">Whisper Medium — accurate</option>
+          <option value="openai/whisper-large-v3">Whisper Large v3 — best</option>
+        </select>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="testKeyBtn">Test key</button>
+        <button class="btn btn-primary" id="saveSettingsBtn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOASTS -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        SubForge &middot; Built by <a href="https://github.com/deepakrajjs-29" target="_blank" rel="noopener">Deepak Raj</a> &middot; Powered by Whisper AI & FFmpeg
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js" type="module"></script>
 </body>
 </html>

@@ -1,34 +1,22 @@
 <div align="center">
 
-# 🎬 MP4 to Text Transcriber
+# 🔥 SubForge
 
-### *Powered by Whisper AI & FFmpeg*
+### *AI-Powered Subtitle Creator*
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Version](https://img.shields.io/badge/version-2.0.0-7c3aed.svg)
+![License](https://img.shields.io/badge/license-MIT-10b981.svg)
 ![HTML](https://img.shields.io/badge/HTML-5-E34F26?logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)
- 
-<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=2E9EF7&center=true&vCenter=true&width=435&lines=Convert+Videos+to+Text;Powered+by+Whisper+AI;Fast+%26+Accurate+Transcription" alt="Typing SVG" />
+
+<img src="https://readme-typing-svg.herokuapp.com?font=Space+Grotesk&pause=1000&color=7C3AED&center=true&vCenter=true&width=500&lines=Drag+%26+Drop+Your+Video;AI+Transcription+with+Whisper;Edit+Subtitles+with+Timestamps;Export+as+SRT%2C+VTT%2C+or+TXT" alt="Typing SVG" />
+
+**Create professional subtitles from any video — entirely in your browser.**
+
+[Live Demo](#-quick-start) · [Features](#-features) · [Get Started](#-quick-start) · [Contributing](#-contributing)
 
 </div>
-
----
-
-## 📋 Table of Contents
-
-- [✨ Features](#-features)
-- [🎯 Demo](#-demo)
-- [🚀 Quick Start](#-quick-start)
-- [📦 Installation](#-installation)
-- [💻 Usage](#-usage)
-- [🏗️ Project Structure](#️-project-structure)
-- [🔧 Technologies Used](#-technologies-used)
-- [⚙️ How It Works](#️-how-it-works)
-- [🤝 Contributing](#-contributing)
-- [📞 Contact](#-contact)
-- [📄 License](#-license)
 
 ---
 
@@ -38,29 +26,15 @@
 
 | Feature | Description |
 |---------|-------------|
-| 🎥 **Video Processing** | Extract audio from MP4 videos instantly |
-| 🎙️ **AI Transcription** | Convert speech to text using OpenAI's Whisper |
-| ⚡ **Browser-Based** | No server required - runs entirely in your browser |
-| 🎨 **Clean UI** | Simple and intuitive user interface |
-| 🔒 **Privacy First** | Process files locally before API call |
-| 📱 **Responsive** | Works on desktop and mobile devices |
-
-</div>
-
----
-
-## 🎯 Demo
-
-<div align="center">
-
-### 🎬 Upload → 🎧 Extract → 📝 Transcribe
-
-```
-┌─────────────┐      ┌─────────────┐      ┌─────────────┐
-│   Upload    │ ───▶ │   Extract   │ ───▶ │ Transcribe  │
-│   MP4 File  │      │    Audio    │      │  with AI    │
-└─────────────┘      └─────────────┘      └─────────────┘
-```
+| 🎥 **Drag & Drop Upload** | Drop MP4, WebM, MKV, or AVI files with instant preview |
+| 🤖 **AI Transcription** | OpenAI Whisper-powered speech-to-text with 15+ language support |
+| ▶️ **Live Video Preview** | Watch video with real-time subtitle overlay |
+| ✏️ **Subtitle Editor** | Edit text, adjust timestamps, add/delete entries |
+| 📦 **Multi-Format Export** | Download as SRT, VTT, or plain TXT |
+| ⚙️ **Configurable** | Choose Whisper model size, language, bring your own API key |
+| 🎨 **Premium Dark UI** | Glassmorphism design with smooth animations |
+| 🔒 **100% Client-Side** | No server — video is processed in your browser |
+| 📱 **Responsive** | Works on desktop, tablet, and mobile |
 
 </div>
 
@@ -70,156 +44,111 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/deepakrajjs-29/mp4-to-text-transcriber.git
+git clone https://github.com/deepakrajjs-29/mvp-subtitle-creater.git
 
 # Navigate to project directory
-cd mp4-to-text-transcriber
+cd mvp-subtitle-creater
 
-# Open in browser
-open index.html
+# Open in browser (or use any local server)
+start index.html
 ```
 
 **Or simply download the files and open `index.html` in your browser!**
 
----
+### Setup Your API Key
 
-## 📦 Installation
-
-### Prerequisites
-
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- Internet connection (for FFmpeg and Whisper API)
-
-### Setup
-
-1. **Download or clone this repository**
-   ```bash
-   git clone https://github.com/deepakrajjs-29/mp4-to-text-transcriber.git
-   ```
-
-2. **No dependencies to install!** 
-   
-   The project uses CDN links for:
-   - FFmpeg.wasm (video processing)
-   - Hugging Face Whisper API (transcription)
-
-3. **Open `index.html` in your browser**
+1. Go to [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
+2. Create a free account and generate an API token
+3. Open SubForge → click ⚙️ Settings → paste your key → Save
 
 ---
 
-## 💻 Usage
+## 💻 How It Works
 
-### Step-by-Step Guide
-
-1. **Open the Application**
-   - Launch `index.html` in your web browser
-
-2. **Select Video File**
-   - Click the file input button
-   - Choose an MP4 video file (English audio recommended)
-
-3. **Transcribe**
-   - Click the "Transcribe" button
-   - Wait for the processing to complete
-   - View your transcript in the output box
-
-### Example
-
-```javascript
-// Upload: video.mp4 (5MB, 2 minutes)
-// Processing time: ~30-60 seconds
-// Output: Full English transcript with punctuation
+```mermaid
+graph LR
+    A["📁 Upload Video"] --> B["🔧 FFmpeg WASM"]
+    B --> C["🎧 Extract Audio"]
+    C --> D["🤖 Whisper AI API"]
+    D --> E["📝 Generate Subtitles"]
+    E --> F["✏️ Edit & Adjust"]
+    F --> G["📦 Export SRT/VTT/TXT"]
 ```
+
+1. **Upload** — Drag & drop or browse for a video file
+2. **Extract** — FFmpeg runs in-browser to extract audio as WAV
+3. **Transcribe** — Audio is sent to HuggingFace's Whisper API
+4. **Generate** — Text is split into timed subtitle entries
+5. **Edit** — Fine-tune text and timestamps in the built-in editor
+6. **Export** — Download as SRT, WebVTT, or plain text
 
 ---
 
 ## 🏗️ Project Structure
 
 ```
-mp4-to-text-transcriber/
+mvp-subtitle-creater/
 │
-├── 📄 index.html          # Main HTML structure
-├── 🎨 style.css           # Styling and animations
-├── ⚙️ script.js           # Core functionality
-└── 📖 README.md           # Documentation (you are here!)
+├── 📄 index.html          # App structure & layout
+├── 🎨 style.css           # Design system & all styles
+├── ⚙️ script.js           # Application logic (modular)
+└── 📖 README.md           # Documentation
 ```
 
-### File Breakdown
+### Architecture
 
-| File | Purpose | Lines of Code |
-|------|---------|---------------|
-| `index.html` | Structure & Layout | ~20 |
-| `style.css` | Styling & Design | ~50 |
-| `script.js` | Logic & Processing | ~60 |
+| Module | Purpose |
+|--------|---------|
+| `Toast` | Non-intrusive notification system |
+| `Settings` | localStorage-based config management |
+| `SettingsModal` | API key, language, model configuration UI |
+| `FileUploader` | Drag & drop handler with file validation |
+| `VideoPlayer` | HTML5 video with live subtitle overlay |
+| `TranscriptionEngine` | FFmpeg audio extraction + Whisper API with retries |
+| `SubtitleParser` | Sentence segmentation + timestamp generation |
+| `SubtitleEditor` | Full CRUD for subtitle entries |
+| `ExportManager` | SRT, VTT, and TXT file generation |
 
 ---
 
-## 🔧 Technologies Used
+## 🔧 Technologies
 
 <div align="center">
 
 | Technology | Purpose |
 |------------|---------|
-| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) | Structure |
-| ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Styling |
-| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | Functionality |
-| ![FFmpeg](https://img.shields.io/badge/FFmpeg-007808?style=for-the-badge&logo=ffmpeg&logoColor=white) | Audio Extraction |
-| ![Whisper AI](https://img.shields.io/badge/Whisper_AI-412991?style=for-the-badge&logo=openai&logoColor=white) | Transcription |
+| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) | Semantic structure |
+| ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) | Glassmorphism design system |
+| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | Modular application logic |
+| ![FFmpeg](https://img.shields.io/badge/FFmpeg_WASM-007808?style=for-the-badge&logo=ffmpeg&logoColor=white) | In-browser audio extraction |
+| ![Whisper](https://img.shields.io/badge/Whisper_AI-412991?style=for-the-badge&logo=openai&logoColor=white) | Speech-to-text transcription |
 
 </div>
 
 ---
 
-## ⚙️ How It Works
+## 🌍 Supported Languages
 
-```mermaid
-graph LR
-    A[Upload MP4] --> B[Load FFmpeg]
-    B --> C[Extract Audio WAV]
-    C --> D[Send to Whisper API]
-    D --> E[Receive Transcript]
-    E --> F[Display Result]
-```
-
-### Technical Process
-
-1. **File Upload**: User selects an MP4 video file
-2. **FFmpeg Loading**: FFmpeg.wasm library loads in browser
-3. **Audio Extraction**: 
-   - Converts video to 16kHz mono WAV audio
-   - Optimized for speech recognition
-4. **API Request**: Sends audio to Hugging Face Whisper model
-5. **Transcription**: AI processes audio and returns text
-6. **Display**: Shows formatted transcript to user
+English, Spanish, French, German, Italian, Portuguese, Dutch, Japanese, Korean, Chinese, Russian, Arabic, Hindi, Tamil, Turkish — and more via Whisper's multilingual models.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how you can help:
-
-### Ways to Contribute
-
-- 🐛 Report bugs
-- 💡 Suggest new features
-- 🔧 Submit pull requests
-- 📖 Improve documentation
-- ⭐ Star this repository
-
-### Contribution Steps
+Contributions welcome! Here's how:
 
 ```bash
-# 1. Fork the repository
-# 2. Create your feature branch
-git checkout -b feature/AmazingFeature
+# Fork & clone
+git clone https://github.com/YOUR_USERNAME/mvp-subtitle-creater.git
 
-# 3. Commit your changes
-git commit -m 'Add some AmazingFeature'
+# Create feature branch
+git checkout -b feature/awesome-feature
 
-# 4. Push to the branch
-git push origin feature/AmazingFeature
+# Make changes & commit
+git commit -m 'Add awesome feature'
 
-# 5. Open a Pull Request
+# Push & open PR
+git push origin feature/awesome-feature
 ```
 
 ---
@@ -233,61 +162,22 @@ git push origin feature/AmazingFeature
 [![Email](https://img.shields.io/badge/Email-deepakrajjs2909%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:deepakrajjs2909@gmail.com)
 [![GitHub](https://img.shields.io/badge/GitHub-deepakrajjs--29-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/deepakrajjs-29)
 
----
-
-### 💬 Get in Touch
-
-Feel free to reach out for:
-- 🤝 Collaboration opportunities
-- 🐛 Bug reports
-- 💡 Feature requests
-- ❓ Questions or support
-
-**Response Time:** Usually within 24-48 hours
-
 </div>
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License**.
-
-```
-MIT License
-
-Copyright (c) 2025 Deepak Raj
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-```
-
----
-
-## 🌟 Acknowledgments
-
-- **OpenAI** - For the Whisper AI model
-- **FFmpeg** - For audio processing capabilities
-- **Hugging Face** - For hosting the Whisper API
+MIT License · Copyright (c) 2025 Deepak Raj
 
 ---
 
 <div align="center">
 
-### ⭐ If you found this helpful, please star this repository! ⭐
+### ⭐ Star this repo if SubForge helped you! ⭐
 
-![GitHub stars](https://img.shields.io/github/stars/deepakrajjs-29/mp4-to-text-transcriber?style=social)
-![GitHub forks](https://img.shields.io/github/forks/deepakrajjs-29/mp4-to-text-transcriber?style=social)
+**Made with ❤️ and 🔥 by Deepak Raj**
 
-**Made with ❤️ by Deepak Raj**
-
-[🔝 Back to Top](#-mp4-to-text-transcriber)
+[🔝 Back to Top](#-subforge)
 
 </div>
