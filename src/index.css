@@ -779,3 +779,378 @@ header {
   background: #ffffff;
   border-color: rgba(99, 102, 241, 0.15);
 }
+
+/* ═══════════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+   ═══════════════════════════════════════════════ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: var(--border-color);
+    box-shadow: var(--shadow-md);
+  }
+  50% {
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-md), var(--glow-primary);
+  }
+}
+
+@keyframes floatOrb {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
+  50% {
+    transform: translate(-15px, -40px) scale(0.95);
+  }
+  75% {
+    transform: translate(-25px, 10px) scale(1.02);
+  }
+}
+
+@keyframes iconSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes textGradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progressPulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(6, 182, 212, 0.9);
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   ENTRANCE ANIMATIONS ON ELEMENTS
+   ═══════════════════════════════════════════════ */
+
+/* Header entrance */
+header {
+  animation: fadeInDown 0.6s ease-out both;
+}
+
+.brand-icon {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.brand h1 {
+  background-size: 200% 200%;
+  animation: textGradientShift 6s ease-in-out infinite;
+}
+
+/* Dashboard columns entrance */
+.left-column {
+  animation: slideInLeft 0.7s ease-out 0.15s both;
+}
+
+.right-column {
+  animation: slideInRight 0.7s ease-out 0.25s both;
+}
+
+/* Glass panels animate in */
+.glass-panel {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+/* Upload zone entrance & hover */
+.upload-container {
+  animation: fadeInScale 0.6s ease-out 0.3s both;
+}
+
+.upload-container:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.12);
+  transform: translateY(-2px);
+}
+
+.upload-container.drag-active {
+  animation: borderGlow 1.5s ease-in-out infinite;
+  transform: scale(1.01);
+}
+
+.upload-container:hover .upload-icon {
+  transform: translateY(-6px) scale(1.1);
+  color: var(--accent-primary);
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.4));
+}
+
+/* Button micro-interactions */
+.btn {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px rgba(99, 102, 241, 0.4);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 12px rgba(99, 102, 241, 0.1);
+}
+
+.btn-icon:hover {
+  transform: rotate(15deg) scale(1.05);
+}
+
+/* Progress bar shimmer & pulse */
+.progress-bar-fill {
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary) 0%,
+    var(--accent-secondary) 40%,
+    rgba(255, 255, 255, 0.3) 50%,
+    var(--accent-secondary) 60%,
+    var(--accent-primary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite, progressPulse 2s ease-in-out infinite;
+}
+
+/* Progress panel entrance */
+.progress-panel {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+/* Tab underline transition */
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  right: 50%;
+  height: 2px;
+  background: var(--accent-secondary);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+  transition: left 0.3s ease, right 0.3s ease;
+  opacity: 0;
+}
+
+.tab-btn:hover::after {
+  left: 20%;
+  right: 20%;
+  opacity: 0.4;
+}
+
+.tab-btn.active::after {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+/* Transcript segments staggered entrance */
+.transcript-segment {
+  animation: fadeInUp 0.35s ease-out both;
+}
+
+.transcript-segment:nth-child(1) { animation-delay: 0.05s; }
+.transcript-segment:nth-child(2) { animation-delay: 0.1s; }
+.transcript-segment:nth-child(3) { animation-delay: 0.15s; }
+.transcript-segment:nth-child(4) { animation-delay: 0.2s; }
+.transcript-segment:nth-child(5) { animation-delay: 0.25s; }
+.transcript-segment:nth-child(6) { animation-delay: 0.3s; }
+
+/* Timestamp badge hover scale */
+.timestamp-badge {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timestamp-badge:hover {
+  transform: scale(1.08);
+}
+
+/* Highlighted word pulse */
+.word-span.highlighted {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Summary card entrance */
+.summary-card {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+.summary-card:nth-child(1) { animation-delay: 0.1s; }
+.summary-card:nth-child(2) { animation-delay: 0.2s; }
+
+/* Key point hover lift */
+.keypoint-item {
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.keypoint-item:hover {
+  background: rgba(99, 102, 241, 0.06);
+  transform: translateX(4px);
+}
+
+/* Search input focus expansion */
+.search-input {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-input:focus {
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.2);
+  border-color: var(--border-focus);
+}
+
+/* Modal entrance */
+.modal-overlay {
+  animation: fadeInScale 0.25s ease-out both;
+}
+
+.modal-content {
+  animation: fadeInUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Dropdown animation */
+.dropdown-menu {
+  animation: dropdownSlide 0.2s ease-out both;
+}
+
+/* Floating glow orbs */
+.glow-spot {
+  animation: floatOrb 20s ease-in-out infinite;
+}
+
+.glow-spot-secondary {
+  animation: floatOrb 25s ease-in-out infinite reverse;
+}
+
+/* Media section entrance */
+.media-section {
+  animation: fadeInScale 0.5s ease-out both;
+}
+
+/* Media container hover */
+.media-container {
+  transition: box-shadow 0.3s ease;
+}
+
+.media-container:hover {
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+}
+
+/* Status banners entrance */
+.glass-panel[style*="borderLeft"] {
+  animation: slideInLeft 0.5s ease-out both;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE ANIMATION REDUCTION
+   ═══════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
